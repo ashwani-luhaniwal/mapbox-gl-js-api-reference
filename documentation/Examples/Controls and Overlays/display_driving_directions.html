@@ -1,0 +1,44 @@
+<!-- 
+    Use the mapbox-gl-directions plugin to show results from the Mapbox Directions API. Click the map to 
+    add an origin and destination.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Display driving directions</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        </style>
+        <script type="text/javascript" src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.css" type="text/css" />
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script type="text/javascript">
+            
+            // adding accessToken for map
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXNod2FuaS1sdWhhbml3YWwiLCJhIjoiY2pjbGdvMXJzMDkzNzMzanJ0MGQ2N2w1NyJ9.83_PUvV-2ldbRUpZdsrVqg';
+            
+            // define map with its options
+            var map = new mapboxgl.Map({
+                container: 'map',                           // container id
+                style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+                center: [-79.4512, 43.6568],                // starting position
+                zoom: 13                                    // starting zoom
+            });
+
+            // add control for driving directions
+            map.addControl(new MapboxDirections({
+                accessToken: mapboxgl.accessToken
+            }), 'top-left');
+
+        </script>
+    </body>
+</html>
