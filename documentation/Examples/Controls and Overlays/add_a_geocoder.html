@@ -1,0 +1,43 @@
+<!-- 
+    Use the mapbox-gl-geocoder control to search for places using Mapbox Geocoding API.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Add a geocoder</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        </style>
+        <script type="text/javascript" src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.css" type="text/css" />
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script type="text/javascript">
+            
+            // adding accessToken for map
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXNod2FuaS1sdWhhbml3YWwiLCJhIjoiY2pjbGdvMXJzMDkzNzMzanJ0MGQ2N2w1NyJ9.83_PUvV-2ldbRUpZdsrVqg';
+            
+            // define map with its options
+            var map = new mapboxgl.Map({
+                container: 'map',                               // container id
+                style: 'mapbox://styles/mapbox/streets-v9',     // stylesheet location
+                center: [-79.4512, 43.6568],                    // starting position
+                zoom: 13                                        // starting zoom
+            });
+
+            // add search geocoder
+            map.addControl(new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken
+            }));
+
+        </script>
+    </body>
+</html>
