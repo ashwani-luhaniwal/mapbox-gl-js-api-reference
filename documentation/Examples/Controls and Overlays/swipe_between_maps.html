@@ -1,0 +1,69 @@
+<!-- 
+    Use mapbox-gl-compare to swipe between and synchronize two maps.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Swipe between maps</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            body {
+                overflow: hidden;
+            }
+            body * {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .map {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css" type="text/css" />
+    </head>
+    <body>
+        <div id="before" class="map"></div>
+        <div id="after" class="map"></div>
+
+        <script type="text/javascript">
+            
+            // adding accessToken for map
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXNod2FuaS1sdWhhbml3YWwiLCJhIjoiY2pjbGdvMXJzMDkzNzMzanJ0MGQ2N2w1NyJ9.83_PUvV-2ldbRUpZdsrVqg';
+            
+            // define beforeMap with its options
+            var beforeMap = new mapboxgl.Map({
+                container: 'before',                        // container id
+                style: 'mapbox://styles/mapbox/light-v9',   // stylesheet location
+                center: [0, 0],                             // starting position
+                zoom: 0                                     // starting zoom
+            });
+
+            // define afterMap with its options
+            var afterMap = new mapboxgl.Map({
+                container: 'after',                         // container id
+                style: 'mapbox://styles/mapbox/dark-v9',    // stylesheet location
+                center: [0, 0],                             // starting position
+                zoom: 0                                     // starting zoom
+            });
+
+            // comparing two maps
+            var map = new mapboxgl.Compare(beforeMap, afterMap, {
+                // Set this to enable comparing two maps by mouse movement:
+                // mousemove: true
+            });
+
+        </script>
+    </body>
+</html>
