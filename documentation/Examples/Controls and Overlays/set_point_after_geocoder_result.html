@@ -1,0 +1,81 @@
+<!-- 
+    Listen to the geocoder.input event from the Geocoder plugin and place a point on the coordinate 
+    results.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Set a point after Geocoder result</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            #geocoder-container > div {
+                min-width: 50%;
+                margin-left: 25%;
+            }
+        </style>
+        <script type="text/javascript" src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.1.1/mapbox-gl-geocoder.css" type="text/css" />
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script type="text/javascript">
+            
+            // adding accessToken for map
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXNod2FuaS1sdWhhbml3YWwiLCJhIjoiY2pjbGdvMXJzMDkzNzMzanJ0MGQ2N2w1NyJ9.83_PUvV-2ldbRUpZdsrVqg';
+            
+            // define map with its options
+            var map = new mapboxgl.Map({
+                container: 'map',                               // container id
+                style: 'mapbox://styles/mapbox/streets-v9',     // stylesheet location
+                center: [-79.4512, 43.6568],                    // starting position
+                zoom: 13                                        // starting zoom
+            });
+
+            // mapbox geocoder
+            var geocoder = new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken
+            });
+
+            // add search geocoder
+            map.addControl(geocoder);
+
+            // After the map style has loaded on the page, add a source layer and default styling
+            // for a single point
+            map.on('load', function() {
+                // adding source on map
+                map.addSource('single-point', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'FeatureCollection',
+                        'features': []
+                    }
+                });
+
+                // adding layer on map
+                map.addLayer({
+                    'id': 'point',
+                    'source': 'single-point',
+                    'type': 'circle',
+                    'paint': {
+                        'circle-radius': 10,
+                        'circle-color': '#007cbf'
+                    }
+                });
+
+                // Listen for the `geocoder.input` event that is triggered when a user makes a
+                // selection and add a symbol that matches the result
+                geocoder.on('result', function(ev) {
+                    map.getSource('single-point').setData(ev.result.geometry);
+                });
+            });
+
+        </script>
+    </body>
+</html>
