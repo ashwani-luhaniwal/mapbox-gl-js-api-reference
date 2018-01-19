@@ -1,0 +1,63 @@
+<!-- 
+    Attach a popup to a marker and display it on click.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Attach a popup to a marker instance</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            #marker {
+                background-image: url('/mapbox-gl-js/assets/washington-monument.jpg');
+                background-size: cover;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .mapboxgl-popup {
+                max-width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script type="text/javascript">
+            
+            // adding accessToken for map
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXNod2FuaS1sdWhhbml3YWwiLCJhIjoiY2pjbGdvMXJzMDkzNzMzanJ0MGQ2N2w1NyJ9.83_PUvV-2ldbRUpZdsrVqg';
+            
+            var monument = [-77.0353, 38.8895];
+
+            // define map with its options
+            var map = new mapboxgl.Map({
+                container: 'map',                               // container id
+                style: 'mapbox://styles/mapbox/streets-v9',     // stylesheet location
+                center: monument,                               // starting position
+                zoom: 15                                        // starting zoom
+            });
+
+            // create the popup
+            var popup = new mapboxgl.Popup()
+                                .setText('Construction on the Washington Monument began in 1848.');
+
+            // create DOM element for the marker
+            var el = document.createElement('div');
+            el.id = 'marker';
+
+            // create the marker
+            new mapboxgl.Marker(el)
+                .setLngLat(monument)
+                .setPopup(popup)    // sets a popup on this marker
+                .addTo(map);
+
+        </script>
+    </body>
+</html>
