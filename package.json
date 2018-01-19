@@ -1,0 +1,27 @@
+{
+  "name": "mapbox-gl-js-api-reference",
+  "version": "1.0.0",
+  "description": "Reference guide on Mapbox GL JS API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashwani-luhaniwal/mapbox-gl-js-api-reference.git"
+  },
+  "keywords": [
+    "Mapbox",
+    "API",
+    "Reference"
+  ],
+  "author": "Ashwani K Luhaniwal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashwani-luhaniwal/mapbox-gl-js-api-reference/issues"
+  },
+  "homepage": "https://github.com/ashwani-luhaniwal/mapbox-gl-js-api-reference#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}
