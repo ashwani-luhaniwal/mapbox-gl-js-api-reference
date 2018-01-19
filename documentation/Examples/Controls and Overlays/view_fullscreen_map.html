@@ -1,0 +1,39 @@
+<!-- 
+    Toggle between current view and fullscreen mode
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>View a fullscreen map</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script type="text/javascript">
+            
+            // adding accessToken for map
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXNod2FuaS1sdWhhbml3YWwiLCJhIjoiY2pjbGdvMXJzMDkzNzMzanJ0MGQ2N2w1NyJ9.83_PUvV-2ldbRUpZdsrVqg';
+            
+            // define map with its options
+            var map = new mapboxgl.Map({
+                container: 'map',                           // container id
+                style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+                center: [11.255, 43.77],                    // starting position
+                zoom: 13                                    // starting zoom
+            });
+
+            // add fullscreen control to map
+            map.addControl(new mapboxgl.FullscreenControl());
+
+        </script>
+    </body>
+</html>
