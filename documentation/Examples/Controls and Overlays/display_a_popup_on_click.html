@@ -1,0 +1,169 @@
+<!-- 
+    When a user clicks a symbol, show a popup containing more information.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Display a popup on click</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.js"></script>
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.0/mapbox-gl.css" rel="stylesheet" />
+        <style>
+            body { margin: 0; padding: 0; }
+            #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+            .mapboxgl-popup {
+                max-width: 400px;
+                font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <script type="text/javascript">
+            
+            // adding accessToken for map
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXNod2FuaS1sdWhhbml3YWwiLCJhIjoiY2pjbGdvMXJzMDkzNzMzanJ0MGQ2N2w1NyJ9.83_PUvV-2ldbRUpZdsrVqg';
+            
+            // define map with its options
+            var map = new mapboxgl.Map({
+                container: 'map',                               // container id
+                style: 'mapbox://styles/mapbox/streets-v9',     // stylesheet location
+                center: [-77.04, 38.907],                       // starting position
+                zoom: 11.15                                     // starting zoom
+            });
+
+            map.on('load', function() {
+                // Add a layer showing the places
+                map.addLayer({
+                    'id': 'places',
+                    'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [{
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<strong>Make it Mount Pleasant</strong><p><a href=\"http://www.mtpleasantdc.com/makeitmtpleasant\">Test</a></p>',
+                                    'icon': 'theatre'
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-77.038659, 38.931567]
+                                }
+                            }, {
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<strong>Mad Men Season Five Finale Watch Party</strong><p>Head to Lounge 201</p>',
+                                    'icon': 'theatre'
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-77.003168, 38.894651]
+                                }
+                            }, {
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<strong>Big Backyard Beach Bash and Wine Fest</strong><p>EatBar Washington</p>',
+                                    'icon': 'bar'
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-77.090372, 38.881189]
+                                }
+                            }, {
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<strong>Ballston Arts & Crafts Market</strong><p>',
+                                    'icon': 'art-gallery'
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-77.111561, 38.882342]
+                                }
+                            }, {
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<strong>Seersucker Bike Ride and Social</strong><p>Feeling dandy? Get fancy, grab your bike</p>',
+                                    'icon': 'bicycle'
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-77.052477, 38.943951]
+                                }
+                            }, {
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<strong>Capital Pride Parade</strong><p>The annual</p>',
+                                    'icon': 'star'
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-77.043444, 38.909664]
+                                }
+                            }, {
+                                'type': 'Feature',
+                                'properties': {
+                                    'description': '<strong>Muhsinah</strong><p>Jazz-influenced hip hop</p>',
+                                    'icon': 'music'
+                                },
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [-77.031706, 38.914581]
+                                }
+                            }, {
+                                "type": "Feature",
+                                "properties": {
+                                    "description": "<strong>A Little Night Music</strong><p>The Arlington Players' production of Stephen Sondheim's  <a href=\"http://www.thearlingtonplayers.org/drupal-6.20/node/4661/show\" target=\"_blank\" title=\"Opens in a new window\"><em>A Little Night Music</em></a> comes to the Kogod Cradle at The Mead Center for American Theater (1101 6th Street SW) this weekend and next. 8:00 p.m.</p>",
+                                    "icon": "music"
+                                },
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [-77.020945, 38.878241]
+                                }
+                            }, {
+                                "type": "Feature",
+                                "properties": {
+                                    "description": "<strong>Truckeroo</strong><p><a href=\"http://www.truckeroodc.com/www/\" target=\"_blank\">Truckeroo</a> brings dozens of food trucks, live music, and games to half and M Street SE (across from Navy Yard Metro Station) today from 11:00 a.m. to 11:00 p.m.</p>",
+                                    "icon": "music"
+                                },
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [-77.007481, 38.876516]
+                                }
+                            }]
+                        }
+                    },
+                    'type': 'symbol',
+                    'layout': {
+                        'icon-image': '{icon}-15',
+                        'icon-allow-overlap': true
+                    }
+                });
+
+                // When a click event occurs on a feature in the places layer, open a popup at the 
+                // location of the click, with description HTML from its properties
+                map.on('click', 'places', function(e) {
+                    new mapboxgl.Popup()
+                            .setLngLat(e.features[0].geometry.coordinates)
+                            .setHTML(e.features[0].properties.description)
+                            .addTo(map);
+                });
+
+                // Change the cursor to a pointer when the mouse is over the states layer
+                map.on('mouseenter', 'places', function() {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change it back to a pointer when it leaves
+                map.on('mouseleave', 'places', function() {
+                    map.getCanvas().style.cursor = '';
+                });
+
+            });
+
+        </script>
+    </body>
+</html>
